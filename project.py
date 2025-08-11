@@ -1,38 +1,25 @@
-valid_mood=["happy","tired","adventurous"]
-restrictions_list=["None","Vegetarian","Vegan","Gluten-free","Dairy-free","Nut-free"]
+import requests
+
+restrictions_list=["None","Vegetarian","Vegan","Gluten Free"]
+
+API_KEY = "3b6002ecb5e7444386a2359468d86ad7"
+url = "https://api.spoonacular.com/recipes/complexSearch"
 
 def main():
     print("🍽  WHAT TO EAT? - Smart CLI Meal Recommender")
 
-    # Mood
-    while True:
-        try:
-            mood=input("How are you feeling? (happy/tired/adventurous)? → ").strip().lower()
-            mood=validateMood(mood)
-            break
-        except:
-            print("❌ Oops! Please enter one of: happy, tired, adventurous.")
-
     # Time req
     while True:
         try:
-            time=int(input("How much time do you have? (minutes) → ").strip())
+            time=int(input("How much time do you have? (minutes >= 15) → ").strip())
             time=validateTime(time)
             break
         except:
-            print("❌ Oops! Please enter a valid number of minutes (positive whole number only)")
-
-    # Budget
-    while True:
-        try:
-            budget=input("Budget level? (low/medium/high) → ").strip().lower()
-            budget=validateBudget(budget)
-            break
-        except:
-            print("❌ Oops! Please enter one of: low, medium, high.")
+            print("❌ Oops! Please enter a valid number of minutes (please input a whole number greater than/equal to 15)")
 
     # Ingredients
     ingredients=input("Ingredients you have? (comma-separated, optional) → ")
+    ingredientsCount=length(ingredients)
     ingredients=validateIngredients(ingredients)
     
     # Restrictions
@@ -45,51 +32,74 @@ def main():
             restriction=validateRestrictions(restriction)
             break
         except:
-            print("❌ Oops! Please enter one of: 0, 1, 2, 3, 4, 5.")
+            print("❌ Oops! Please enter one of: 0, 1, 2, 3.")
 
     searchHeadingOutput()
+    data = getRecipe(ingredients, time, restriction)
+
+def getRecipe(ingredients, time, restriction):
+    params = {
+    "apiKey": API_KEY,
+    "instructionsRequired": True,         # must have instructions
+    "maxReadyTime": time,                 # minutes
+    "addRecipeInformation": True,         # extra details like servings, summary
+    "addRecipeInstructions": True,        # analyzed instructions
+    "number":3                            # returns 3 meal ideas
+}
+    
+    if ingredients and restriction:
+        params["diet"]=restriction
+        params["includeIngredients"]=ingredients
+        
+    elif restriction:
+        # no ingredients
+        params["diet"]=restriction
+    elif ingredients:
+        # no restriction
+        params["includeIngredients"]=ingredients
+
+    response = requests.get(url,params=params)
+    return response.json()
+
+
+def length(ingredients):
+    ingredients=ingredients.split(",")
+    return len(ingredients)
 
 def searchHeadingOutput():
     print("🔍 Searching recipes...")
     print("💡 Applying mood and ingredient filters...")
     print("⚡ Scoring recipes for best match...")
     print()
-    print("Top 3 suggestions:")
+    print("Our suggestions:")
     print("──────────────────────────────────────────────────────────")
     print()
 
 def validateIngredients(ingredients):
+    ingredientsList=""
     if (ingredients):
         ingredients=ingredients.split(",")
         for i in range(len(ingredients)):
             ingredients[i]=ingredients[i].strip().lower()
-        return ingredients
+        for i in ingredients:
+            ingredientsList+=i+","
+        return ingredientsList[:-1]
     else:
-        return []
+        return ""
 
 def validateTime(time):
-    if time<=0:
+    if time<15:
         raise ValueError
     else:
         return time
     
 def validateRestrictions(restriction):
-    if restriction < 0 or restriction > 5:
+    if restriction < 0 or restriction > 3:
         raise ValueError
+    elif restriction==0:
+        return ""
     else:
         return restrictions_list[restriction]
-
-def validateBudget(budget):
-    if budget not in ["low","medium","high"]:
-        raise ValueError
-    else:
-        return budget
-    
-def validateMood(mood):
-    if mood not in valid_mood:
-        raise ValueError
-    else:
-        return mood
 
 if __name__ == "__main__":
     main() 

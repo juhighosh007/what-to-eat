@@ -1,26 +1,22 @@
-from project import validateBudget, validateIngredients, validateMood, validateRestrictions, validateTime
+from project import validateIngredients, length, validateRestrictions, validateTime
 import pytest
 
-def test_validateBudget():
-    with pytest.raises(ValueError):
-        validateBudget("Very high")
-
-def test_validateMood():
-    with pytest.raises(ValueError):
-        validateMood("sad")
-
 def test_validateIngredients():
-    assert validateIngredients("")==[]
-    assert validateIngredients("sauce , tomato")==["sauce","tomato"]
+    assert validateIngredients("")==""
+    assert validateIngredients("sauce , tomato ")=="sauce,tomato"
 
 def test_validateTime():
     with pytest.raises(ValueError):
-        validateTime(0)
-    with pytest.raises(ValueError):
         validateTime(-10)
+    with pytest.raises(ValueError):
+        validateTime(10)
+
+def test_length():
+    assert length("sauce , tomato")==2
 
 def test_validateRestrictions():
     with pytest.raises(ValueError):
-        validateRestrictions(6)
+        validateRestrictions(4)
     with pytest.raises(ValueError):
-        validateRestrictions(-6)
+        validateRestrictions(-4)
+    assert validateRestrictions(0)==""
