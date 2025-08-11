@@ -1,0 +1,9 @@
+# Ignore environment files
+.env
+# Ignore Python cache
+__pycache__/
+*.pyc
+# VS Code settings
+.vscode/
+# Pytest cache
+.pytest_cache/
