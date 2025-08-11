@@ -1,8 +1,11 @@
 import requests
+from dotenv import load_dotenv
+import os
 
 restrictions_list=["None","Vegetarian","Vegan","Gluten Free"]
 
-API_KEY = "3b6002ecb5e7444386a2359468d86ad7"
+load_dotenv()
+API_KEY = os.getenv("SPOONACULAR_API_KEY")
 url = "https://api.spoonacular.com/recipes/complexSearch"
 
 def main():
