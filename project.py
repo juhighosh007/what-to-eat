@@ -22,7 +22,6 @@ def main():
 
     # Ingredients
     ingredients=input("Ingredients you have? (comma-separated, optional) → ")
-    ingredientsCount=length(ingredients)
     ingredients=validateIngredients(ingredients)
     
     # Restrictions
@@ -39,6 +38,54 @@ def main():
 
     searchHeadingOutput()
     data = getRecipe(ingredients, time, restriction)
+    displayRecipe(data)
+
+def displayRecipe(data):
+    count=1
+    ids=[]
+    title=[]
+    for i in data["results"]:
+        ids.append(i["id"])
+        title.append(i["title"])
+        print(str(count) + ". " + i["title"])
+        print("→ Time: " + str(i["readyInMinutes"]) + " mins")
+        print("→ View recipe: " + i["sourceUrl"])
+        print()
+        count+=1
+    displayInstructions(ids,title)
+
+def displayInstructions(ids,title):
+    while True:
+        try:
+            recipeNumber=int(input("Choose an option (1-3) → "))
+            validateRecipeNumber(recipeNumber)
+            break 
+        except:
+            print("❌ Oops! Please enter one of: 1, 2, 3.")
+    print()
+
+    idNumber=ids[recipeNumber-1]
+    recipeName=title[recipeNumber-1]
+
+    recipeUrl = f"https://api.spoonacular.com/recipes/{idNumber}/analyzedInstructions"
+
+    params = {"apiKey": API_KEY}
+
+    response = requests.get(recipeUrl,params=params)
+    data=response.json()
+
+    # Display 
+    print("📜 "+ recipeName + " - Recipe Steps")
+    for i in data[0]["steps"]:
+        print(f"Step {i['number']}: {i['step']}")
+
+    print()
+    print("Bon Appétit 😋")
+
+
+def validateRecipeNumber(recipeNumber):
+    if recipeNumber not in [1,2,3]:
+        raise ValueError
 
 def getRecipe(ingredients, time, restriction):
     params = {
@@ -64,12 +111,8 @@ def getRecipe(ingredients, time, restriction):
     response = requests.get(url,params=params)
     return response.json()
 
-
-def length(ingredients):
-    ingredients=ingredients.split(",")
-    return len(ingredients)
-
 def searchHeadingOutput():
+    print()
     print("🔍 Searching recipes...")
     print("💡 Applying mood and ingredient filters...")
     print("⚡ Scoring recipes for best match...")
@@ -102,7 +145,7 @@ def validateRestrictions(restriction):
     elif restriction==0:
         return ""
     else:
-        return restrictions_list[restriction]
+        return restrictions_list[restriction].lower()
 
 if __name__ == "__main__":
     main() 

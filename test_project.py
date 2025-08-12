@@ -11,12 +11,13 @@ def test_validateTime():
     with pytest.raises(ValueError):
         validateTime(10)
 
-def test_length():
-    assert length("sauce , tomato")==2
-
 def test_validateRestrictions():
     with pytest.raises(ValueError):
         validateRestrictions(4)
     with pytest.raises(ValueError):
         validateRestrictions(-4)
     assert validateRestrictions(0)==""
+    assert validateRestrictions(1)=="vegetarian"
+    assert validateRestrictions(2)=="vegan"
+    assert validateRestrictions(3)=="gluten free"
+
