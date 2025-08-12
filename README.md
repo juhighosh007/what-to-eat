@@ -31,14 +31,14 @@ Before you run the program, make sure you have:
 
 4. **Environment Variables**
    1. Change file name from `.env.example` to `.env`
-   2. Replace `your_api_key_here` with your own Spoonacular API key
+   2. Replace `your_api_key_here` with your own Spoonacular API key (without quotes)
 
 --- 
 
 ## 🚀 How to Use
 
 1. **Clone this repository**
-2. Run the script:
+2. **Run the script:**
 
    ```bash
    python project.py
