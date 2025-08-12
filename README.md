@@ -35,13 +35,15 @@ Before you run the program, make sure you have:
 
 --- 
 
-## 🚀 How to Use
-
-1. **Clone this repository**
-2. **Run the script:**
-
-   ```bash
-   python project.py
+## Usage
+Use [python](https://www.python.org/) to run the application
+```
+$ python project.py
+```
+Use [pytest](https://docs.pytest.org/en/7.2.x/) to test the application
+```
+$ pytest test_project.py
+```
 
 --- 
 
