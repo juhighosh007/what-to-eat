@@ -1,4 +1,4 @@
-from project import validateIngredients, length, validateRestrictions, validateTime
+from project import validateIngredients, validateRestrictions, validateTime
 import pytest
 
 def test_validateIngredients():
