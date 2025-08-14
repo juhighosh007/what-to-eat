@@ -1,6 +1,12 @@
-# 🍽 WHAT TO EAT? – Smart CLI Meal Recommender
+# 🍽 WHAT TO EAT? — Smart CLI Meal Recommender
 
-A Python command-line application that recommends recipes based on **available time**, **ingredients you have**, and **dietary restrictions** — powered by the [Spoonacular API](https://spoonacular.com/food-api/console#Dashboard).
+Have you ever stood in front of your fridge trying to decide what to make with what you have? 
+
+**WHAT TO EAT?** is a Python command-line application that helps you find a recipe quickly. It gives you meal suggestions based on what ingredients you have, time required to prepare it, and dietary restrictions. Bon Appétit! 😋
+
+Click [here](https://youtu.be/rnSELn1zy-g?si=qGWc-_azk5wgsUlu) to watch the demo video.
+
+Created as the final project for Harvard’s CS50P (Introduction to Programming with Python). 
 
 ---
 
@@ -21,7 +27,7 @@ Before you run the program, make sure you have:
    [Download Python](https://www.python.org/downloads/)
 
 2. **Spoonacular API Key**  
-   - Sign up at [Spoonacular](https://spoonacular.com/food-api/console#Dashboard)
+   - Sign up for free at [Spoonacular](https://spoonacular.com/food-api/console#Dashboard)
    - Generate your API key
 
 3. **Install dependencies**  
