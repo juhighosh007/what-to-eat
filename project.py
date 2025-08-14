@@ -51,6 +51,7 @@ def main():
     else:
         print("No tasty matches found this time... Try adding different ingredients or adjusting your filters!")
         input("\nPress Enter to exit...")
+        sys.exit()
 
 def displayRecipe(data):
     count=1
