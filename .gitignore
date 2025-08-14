@@ -7,3 +7,10 @@ __pycache__/
 .vscode/
 # Pytest cache
 .pytest_cache/
+# Build-only release script
+project_release.py
+
+# PyInstaller build folders
+dist/
+build/
+*.spec
