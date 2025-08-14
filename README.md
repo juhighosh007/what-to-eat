@@ -2,7 +2,7 @@
 
 Have you ever stood in front of your fridge trying to decide what to make with what you have? 
 
-**WHAT TO EAT?** is a Python command-line application that helps you find a recipe quickly. It gives you meal suggestions based on what ingredients you have, time required to prepare it, and dietary restrictions. Bon Appétit! 😋
+**WHAT TO EAT?** is a Python command-line application that helps you find a recipe quickly. It gives you meal suggestions based on what ingredients you have, time required to prepare it, and dietary restrictions. Bon Appétit!😋
 
 Click [here](https://youtu.be/rnSELn1zy-g?si=qGWc-_azk5wgsUlu) to watch the demo video.
 
