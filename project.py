@@ -8,6 +8,12 @@ load_dotenv()
 API_KEY = os.getenv("SPOONACULAR_API_KEY")
 url = "https://api.spoonacular.com/recipes/complexSearch"
 
+if not API_KEY or API_KEY.strip().lower() == "your_api_key_here":
+    print("❌ API key not found! Please set SPOONACULAR_API_KEY in your .env file.")
+    print("👉 Create a .env file in the project root with the following format:")
+    print("SPOONACULAR_API_KEY=your_api_key_here")
+    exit(1)
+
 def main():
     print("🍽  WHAT TO EAT? - Smart CLI Meal Recommender")
 
@@ -38,7 +44,10 @@ def main():
 
     searchHeadingOutput()
     data = getRecipe(ingredients, time, restriction)
-    displayRecipe(data)
+    if data["results"]:
+        displayRecipe(data)
+    else:
+        print("No tasty matches found this time... Try adding different ingredients or adjusting your filters!")
 
 def displayRecipe(data):
     count=1
@@ -148,4 +157,5 @@ def validateRestrictions(restriction):
         return restrictions_list[restriction].lower()
 
 if __name__ == "__main__":
-    main() 
+    main()
+    input("\nPress Enter to exit...")
